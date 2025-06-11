@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, BookOpen, Code, Users, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import LanguageToggle from './LanguageToggle';
+import { useTranslation } from '../hooks/useTranslation';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,11 +30,11 @@ const Header = () => {
   };
 
   const navItems = [
-    { name: 'Languages', icon: BookOpen, href: 'services' },
-    { name: 'Coding', icon: Code, href: 'services' },
-    { name: 'The Office', icon: Users, href: 'services' },
-    { name: 'About', href: 'stats' },
-    { name: 'Contact', href: 'contact' },
+    { name: t('nav.languages'), icon: BookOpen, href: 'services' },
+    { name: t('nav.coding'), icon: Code, href: 'services' },
+    { name: t('nav.office'), icon: Users, href: 'services' },
+    { name: t('nav.about'), href: 'stats' },
+    { name: t('nav.contact'), href: 'contact' },
   ];
 
   return (
@@ -54,7 +57,7 @@ const Header = () => {
               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center glow-blue">
                 <span className="text-white font-bold text-sm">R</span>
               </div>
-              <span className="text-white font-bold text-xl text-glow">Rising Academy</span>
+              <span className="text-white font-bold text-xl text-glow">{t('brand.name')}</span>
             </motion.div>
           </Link>
 
@@ -79,16 +82,20 @@ const Header = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Shield size={16} />
-                <span>Admin</span>
+                <span>{t('nav.admin')}</span>
               </motion.button>
             </Link>
+            
+            {/* Language Toggle */}
+            <LanguageToggle />
+            
             <motion.button
               onClick={() => scrollToSection('services')}
               className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-lg glow-blue hover:glow-blue-intense transition-all duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Join Now
+              {t('nav.joinNow')}
             </motion.button>
           </nav>
 
@@ -118,13 +125,19 @@ const Header = () => {
               </button>
             ))}
             <Link to="/admin" className="block text-gray-300 hover:text-blue-400 py-2 transition-colors duration-200">
-              Admin
+              {t('nav.admin')}
             </Link>
+            
+            {/* Mobile Language Toggle */}
+            <div className="py-2">
+              <LanguageToggle />
+            </div>
+            
             <button 
               onClick={() => scrollToSection('services')}
               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-2 rounded-lg mt-4 glow-blue"
             >
-              Join Now
+              {t('nav.joinNow')}
             </button>
           </motion.div>
         )}

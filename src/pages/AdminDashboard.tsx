@@ -568,8 +568,8 @@ const AdminDashboard = () => {
                       type="url"
                       value={editingSettings?.contact.facebook || settings.contact.facebook}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev!,
-                        contact: { ...prev!.contact, facebook: e.target.value }
+                        ...prev || settings,
+                        contact: { ...(prev || settings).contact, facebook: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
                     />
@@ -580,8 +580,8 @@ const AdminDashboard = () => {
                       type="url"
                       value={editingSettings?.contact.instagram || settings.contact.instagram}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev!,
-                        contact: { ...prev!.contact, instagram: e.target.value }
+                        ...prev || settings,
+                        contact: { ...(prev || settings).contact, instagram: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
                     />
@@ -592,8 +592,8 @@ const AdminDashboard = () => {
                       type="text"
                       value={editingSettings?.contact.phone || settings.contact.phone}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev!,
-                        contact: { ...prev!.contact, phone: e.target.value }
+                        ...prev || settings,
+                        contact: { ...(prev || settings).contact, phone: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
                     />
@@ -604,8 +604,8 @@ const AdminDashboard = () => {
                       type="text"
                       value={editingSettings?.contact.location || settings.contact.location}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev!,
-                        contact: { ...prev!.contact, location: e.target.value }
+                        ...prev || settings,
+                        contact: { ...(prev || settings).contact, location: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
                     />
@@ -623,8 +623,8 @@ const AdminDashboard = () => {
                       type="number"
                       value={editingSettings?.stats.students || settings.stats.students}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev!,
-                        stats: { ...prev!.stats, students: parseInt(e.target.value) }
+                        ...prev || settings,
+                        stats: { ...(prev || settings).stats, students: parseInt(e.target.value) }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
                     />
@@ -635,8 +635,8 @@ const AdminDashboard = () => {
                       type="number"
                       value={editingSettings?.stats.languages || settings.stats.languages}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev!,
-                        stats: { ...prev!.stats, languages: parseInt(e.target.value) }
+                        ...prev || settings,
+                        stats: { ...(prev || settings).stats, languages: parseInt(e.target.value) }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
                     />
@@ -647,8 +647,8 @@ const AdminDashboard = () => {
                       type="number"
                       value={editingSettings?.stats.programmingLanguages || settings.stats.programmingLanguages}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev!,
-                        stats: { ...prev!.stats, programmingLanguages: parseInt(e.target.value) }
+                        ...prev || settings,
+                        stats: { ...(prev || settings).stats, programmingLanguages: parseInt(e.target.value) }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
                     />
@@ -661,8 +661,8 @@ const AdminDashboard = () => {
                       max="100"
                       value={editingSettings?.stats.successRate || settings.stats.successRate}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev!,
-                        stats: { ...prev!.stats, successRate: parseInt(e.target.value) }
+                        ...prev || settings,
+                        stats: { ...(prev || settings).stats, successRate: parseInt(e.target.value) }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
                     />
@@ -680,8 +680,8 @@ const AdminDashboard = () => {
                       type="text"
                       value={editingSettings?.officeClub.day || settings.officeClub.day}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev!,
-                        officeClub: { ...prev!.officeClub, day: e.target.value }
+                        ...prev || settings,
+                        officeClub: { ...(prev || settings).officeClub, day: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
                     />
@@ -692,8 +692,8 @@ const AdminDashboard = () => {
                       type="text"
                       value={editingSettings?.officeClub.time || settings.officeClub.time}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev!,
-                        officeClub: { ...prev!.officeClub, time: e.target.value }
+                        ...prev || settings,
+                        officeClub: { ...(prev || settings).officeClub, time: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
                     />
@@ -704,8 +704,8 @@ const AdminDashboard = () => {
                       rows={3}
                       value={editingSettings?.officeClub.description || settings.officeClub.description}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev!,
-                        officeClub: { ...prev!.officeClub, description: e.target.value }
+                        ...prev || settings,
+                        officeClub: { ...(prev || settings).officeClub, description: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none resize-none"
                     />
