@@ -90,12 +90,12 @@ const translations: Translations = {
     'nav.backToHome': 'العودة للرئيسية',
     
     // Brand
-    'brand.name': 'أكاديمية النهوض',
+    'brand.name': 'أكاديمية رايزين',
     
     // Hero Section
     'hero.badge': 'مرحباً بك في مستقبل التعلم',
     'hero.title1': 'أكاديمية',
-    'hero.title2': 'النهوض',
+    'hero.title2': 'رايزين',
     'hero.subtitle': 'أتقن اللغات، اقهر البرمجة، وتواصل مع المتعلمين المتشابهين في جلسات نادي الاثنين الحصرية في المكتب',
     'hero.startLearning': 'ابدأ التعلم اليوم',
     'hero.joinOffice': 'انضم لنادي المكتب',
@@ -121,11 +121,11 @@ const translations: Translations = {
     
     // Admin
     'admin.title': 'تسجيل دخول الإدارة',
-    'admin.subtitle': 'الوصول إلى لوحة إدارة أكاديمية النهوض',
+    'admin.subtitle': 'الوصول إلى لوحة إدارة أكاديمية رايزين',
     'admin.email': 'عنوان البريد الإلكتروني',
     'admin.password': 'كلمة المرور',
     'admin.signIn': 'تسجيل الدخول',
-    'admin.dashboard': 'إدارة أكاديمية النهوض',
+    'admin.dashboard': 'إدارة أكاديمية رايزين',
     'admin.logout': 'تسجيل الخروج',
     'admin.settings': 'الإعدادات',
     'admin.refresh': 'تحديث الطلبات',
