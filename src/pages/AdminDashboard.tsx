@@ -15,13 +15,16 @@ import {
   Eye,
   Trash2,
   Settings,
-  Edit
+  Edit,
+  RefreshCw
 } from 'lucide-react';
 import { applicationService } from '../services/applicationService';
 import { authService } from '../services/authService';
 import { settingsService, SiteSettings } from '../services/settingsService';
 import { Application } from '../types';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from '../hooks/useTranslation';
+import Header from '../components/Header';
 import toast from 'react-hot-toast';
 
 const AdminDashboard = () => {
@@ -29,12 +32,14 @@ const AdminDashboard = () => {
   const [filteredApplications, setFilteredApplications] = useState<Application[]>([]);
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
   const [showSettings, setShowSettings] = useState(false);
   const [editingSettings, setEditingSettings] = useState<SiteSettings | null>(null);
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,12 +53,26 @@ const AdminDashboard = () => {
 
   const loadApplications = async () => {
     try {
+      setLoading(true);
       const data = await applicationService.getAllApplications();
       setApplications(data);
     } catch (error) {
       toast.error('Failed to load applications');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const refreshApplications = async () => {
+    try {
+      setRefreshing(true);
+      const data = await applicationService.getAllApplications();
+      setApplications(data);
+      toast.success('Applications refreshed successfully');
+    } catch (error) {
+      toast.error('Failed to refresh applications');
+    } finally {
+      setRefreshing(false);
     }
   };
 
@@ -170,38 +189,51 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-dark-bg flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
+      <div className="min-h-screen bg-dark-bg">
+        <Header />
+        <div className="flex items-center justify-center pt-20">
+          <div className="text-white text-xl">{t('common.loading')}</div>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-dark-bg">
-      {/* Header */}
-      <div className="bg-dark-card border-b border-dark-border">
+      <Header />
+      
+      {/* Admin Header */}
+      <div className="bg-dark-card border-b border-dark-border mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center glow-blue">
                 <span className="text-white font-bold text-sm">R</span>
               </div>
-              <h1 className="text-white font-bold text-xl">Rising Academy Admin</h1>
+              <h1 className="text-white font-bold text-xl">{t('admin.dashboard')}</h1>
             </div>
             <div className="flex items-center space-x-4">
+              <button
+                onClick={refreshApplications}
+                disabled={refreshing}
+                className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors disabled:opacity-50"
+              >
+                <RefreshCw size={20} className={refreshing ? 'animate-spin' : ''} />
+                <span>{t('admin.refresh')}</span>
+              </button>
               <button
                 onClick={() => setShowSettings(true)}
                 className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
               >
                 <Settings size={20} />
-                <span>Settings</span>
+                <span>{t('admin.settings')}</span>
               </button>
               <button
                 onClick={handleLogout}
                 className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
               >
                 <LogOut size={20} />
-                <span>Logout</span>
+                <span>{t('admin.logout')}</span>
               </button>
             </div>
           </div>
@@ -217,7 +249,7 @@ const AdminDashboard = () => {
             className="bg-dark-card border border-dark-border rounded-lg p-4 text-center"
           >
             <div className="text-2xl font-bold text-white">{stats.total}</div>
-            <div className="text-gray-400 text-sm">Total</div>
+            <div className="text-gray-400 text-sm">{t('admin.total')}</div>
           </motion.div>
           
           <motion.div
@@ -227,7 +259,7 @@ const AdminDashboard = () => {
             className="bg-dark-card border border-dark-border rounded-lg p-4 text-center"
           >
             <div className="text-2xl font-bold text-yellow-400">{stats.pending}</div>
-            <div className="text-gray-400 text-sm">Pending</div>
+            <div className="text-gray-400 text-sm">{t('admin.pending')}</div>
           </motion.div>
           
           <motion.div
@@ -237,7 +269,7 @@ const AdminDashboard = () => {
             className="bg-dark-card border border-dark-border rounded-lg p-4 text-center"
           >
             <div className="text-2xl font-bold text-green-400">{stats.approved}</div>
-            <div className="text-gray-400 text-sm">Approved</div>
+            <div className="text-gray-400 text-sm">{t('admin.approved')}</div>
           </motion.div>
           
           <motion.div
@@ -247,7 +279,7 @@ const AdminDashboard = () => {
             className="bg-dark-card border border-dark-border rounded-lg p-4 text-center"
           >
             <div className="text-2xl font-bold text-red-400">{stats.rejected}</div>
-            <div className="text-gray-400 text-sm">Rejected</div>
+            <div className="text-gray-400 text-sm">{t('admin.rejected')}</div>
           </motion.div>
           
           <motion.div
@@ -257,7 +289,7 @@ const AdminDashboard = () => {
             className="bg-dark-card border border-dark-border rounded-lg p-4 text-center"
           >
             <div className="text-2xl font-bold text-blue-400">{stats.language}</div>
-            <div className="text-gray-400 text-sm">Languages</div>
+            <div className="text-gray-400 text-sm">{t('admin.languages')}</div>
           </motion.div>
           
           <motion.div
@@ -267,7 +299,7 @@ const AdminDashboard = () => {
             className="bg-dark-card border border-dark-border rounded-lg p-4 text-center"
           >
             <div className="text-2xl font-bold text-purple-400">{stats.coding}</div>
-            <div className="text-gray-400 text-sm">Coding</div>
+            <div className="text-gray-400 text-sm">{t('admin.coding')}</div>
           </motion.div>
           
           <motion.div
@@ -277,7 +309,7 @@ const AdminDashboard = () => {
             className="bg-dark-card border border-dark-border rounded-lg p-4 text-center"
           >
             <div className="text-2xl font-bold text-cyan-400">{stats.officeClub}</div>
-            <div className="text-gray-400 text-sm">Office Club</div>
+            <div className="text-gray-400 text-sm">{t('admin.office')}</div>
           </motion.div>
         </div>
 
@@ -513,7 +545,7 @@ const AdminDashboard = () => {
                     }}
                     className="flex-1 bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all duration-300"
                   >
-                    Approve Application
+                    {t('common.approve')} Application
                   </button>
                   <button
                     onClick={() => {
@@ -522,7 +554,7 @@ const AdminDashboard = () => {
                     }}
                     className="flex-1 bg-gradient-to-r from-red-600 to-red-700 text-white py-3 rounded-lg font-semibold hover:from-red-700 hover:to-red-800 transition-all duration-300"
                   >
-                    Reject Application
+                    {t('common.reject')} Application
                   </button>
                 </div>
               )}
@@ -568,7 +600,7 @@ const AdminDashboard = () => {
                       type="url"
                       value={editingSettings?.contact.facebook || settings.contact.facebook}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev || settings,
+                        ...(prev || settings),
                         contact: { ...(prev || settings).contact, facebook: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
@@ -580,7 +612,7 @@ const AdminDashboard = () => {
                       type="url"
                       value={editingSettings?.contact.instagram || settings.contact.instagram}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev || settings,
+                        ...(prev || settings),
                         contact: { ...(prev || settings).contact, instagram: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
@@ -592,7 +624,7 @@ const AdminDashboard = () => {
                       type="text"
                       value={editingSettings?.contact.phone || settings.contact.phone}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev || settings,
+                        ...(prev || settings),
                         contact: { ...(prev || settings).contact, phone: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
@@ -604,7 +636,7 @@ const AdminDashboard = () => {
                       type="text"
                       value={editingSettings?.contact.location || settings.contact.location}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev || settings,
+                        ...(prev || settings),
                         contact: { ...(prev || settings).contact, location: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
@@ -623,7 +655,7 @@ const AdminDashboard = () => {
                       type="number"
                       value={editingSettings?.stats.students || settings.stats.students}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev || settings,
+                        ...(prev || settings),
                         stats: { ...(prev || settings).stats, students: parseInt(e.target.value) }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
@@ -635,7 +667,7 @@ const AdminDashboard = () => {
                       type="number"
                       value={editingSettings?.stats.languages || settings.stats.languages}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev || settings,
+                        ...(prev || settings),
                         stats: { ...(prev || settings).stats, languages: parseInt(e.target.value) }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
@@ -647,7 +679,7 @@ const AdminDashboard = () => {
                       type="number"
                       value={editingSettings?.stats.programmingLanguages || settings.stats.programmingLanguages}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev || settings,
+                        ...(prev || settings),
                         stats: { ...(prev || settings).stats, programmingLanguages: parseInt(e.target.value) }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
@@ -661,7 +693,7 @@ const AdminDashboard = () => {
                       max="100"
                       value={editingSettings?.stats.successRate || settings.stats.successRate}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev || settings,
+                        ...(prev || settings),
                         stats: { ...(prev || settings).stats, successRate: parseInt(e.target.value) }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
@@ -680,7 +712,7 @@ const AdminDashboard = () => {
                       type="text"
                       value={editingSettings?.officeClub.day || settings.officeClub.day}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev || settings,
+                        ...(prev || settings),
                         officeClub: { ...(prev || settings).officeClub, day: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
@@ -692,7 +724,7 @@ const AdminDashboard = () => {
                       type="text"
                       value={editingSettings?.officeClub.time || settings.officeClub.time}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev || settings,
+                        ...(prev || settings),
                         officeClub: { ...(prev || settings).officeClub, time: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
@@ -704,7 +736,7 @@ const AdminDashboard = () => {
                       rows={3}
                       value={editingSettings?.officeClub.description || settings.officeClub.description}
                       onChange={(e) => setEditingSettings(prev => ({
-                        ...prev || settings,
+                        ...(prev || settings),
                         officeClub: { ...(prev || settings).officeClub, description: e.target.value }
                       }))}
                       className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none resize-none"
@@ -722,21 +754,21 @@ const AdminDashboard = () => {
                   }}
                   className="flex-1 border border-dark-border text-gray-300 py-3 rounded-lg hover:bg-dark-bg transition-colors"
                 >
-                  Cancel
+                  {t('common.cancel')}
                 </button>
                 <button
                   type="button"
                   onClick={() => setEditingSettings(settings)}
                   className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300"
                 >
-                  Edit Settings
+                  {t('common.edit')} Settings
                 </button>
                 {editingSettings && (
                   <button
                     type="submit"
                     className="flex-1 bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all duration-300"
                   >
-                    Save Changes
+                    {t('common.save')} Changes
                   </button>
                 )}
               </div>

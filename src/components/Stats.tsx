@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Users, BookOpen, Code, Award } from 'lucide-react';
 import { settingsService, SiteSettings } from '../services/settingsService';
+import { useTranslation } from '../hooks/useTranslation';
 
 const Stats = () => {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     loadSettings();
@@ -23,25 +25,25 @@ const Stats = () => {
     {
       icon: Users,
       number: `${settings?.stats.students || 500}+`,
-      label: 'Active Students',
+      label: t('stats.students'),
       color: 'from-blue-500 to-blue-600'
     },
     {
       icon: BookOpen,
       number: settings?.stats.languages || 12,
-      label: 'Languages Taught',
+      label: t('stats.languages'),
       color: 'from-purple-500 to-purple-600'
     },
     {
       icon: Code,
       number: `${settings?.stats.programmingLanguages || 25}+`,
-      label: 'Programming Languages',
+      label: t('stats.programming'),
       color: 'from-cyan-500 to-cyan-600'
     },
     {
       icon: Award,
       number: `${settings?.stats.successRate || 95}%`,
-      label: 'Success Rate',
+      label: t('stats.success'),
       color: 'from-green-500 to-green-600'
     }
   ];
@@ -60,10 +62,10 @@ const Stats = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Our <span className="text-glow text-blue-400">Impact</span>
+            {t('stats.title').split(' ')[0]} <span className="text-glow text-blue-400">{t('stats.title').split(' ')[1]}</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Numbers that speak to our commitment to excellence and student success
+            {t('stats.subtitle')}
           </p>
         </motion.div>
 

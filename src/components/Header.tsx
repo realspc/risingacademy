@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, BookOpen, Code, Users, Shield } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Menu, X, BookOpen, Code, Users, Shield, ArrowLeft } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import LanguageToggle from './LanguageToggle';
 import { useTranslation } from '../hooks/useTranslation';
 
@@ -9,6 +9,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { t } = useTranslation();
+  const location = useLocation();
+
+  const isAdminPage = location.pathname.includes('/admin');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +66,22 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
+            {/* Back to Home button for admin pages */}
+            {isAdminPage && (
+              <Link to="/">
+                <motion.button
+                  className="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center space-x-2"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <ArrowLeft size={16} />
+                  <span>{t('nav.backToHome')}</span>
+                </motion.button>
+              </Link>
+            )}
+
+            {/* Regular navigation items (only show on home page) */}
+            {!isAdminPage && navItems.map((item) => (
               <motion.button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
@@ -75,37 +93,47 @@ const Header = () => {
                 <span>{item.name}</span>
               </motion.button>
             ))}
-            <Link to="/admin">
-              <motion.button
-                className="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center space-x-1"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Shield size={16} />
-                <span>{t('nav.admin')}</span>
-              </motion.button>
-            </Link>
+
+            {/* Admin link (only show on home page) */}
+            {!isAdminPage && (
+              <Link to="/admin">
+                <motion.button
+                  className="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center space-x-1"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Shield size={16} />
+                  <span>{t('nav.admin')}</span>
+                </motion.button>
+              </Link>
+            )}
             
             {/* Language Toggle */}
             <LanguageToggle />
             
-            <motion.button
-              onClick={() => scrollToSection('services')}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-lg glow-blue hover:glow-blue-intense transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {t('nav.joinNow')}
-            </motion.button>
+            {/* Join Now button (only show on home page) */}
+            {!isAdminPage && (
+              <motion.button
+                onClick={() => scrollToSection('services')}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-lg glow-blue hover:glow-blue-intense transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {t('nav.joinNow')}
+              </motion.button>
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-white"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center space-x-4">
+            <LanguageToggle />
+            <button
+              className="text-white"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -115,7 +143,18 @@ const Header = () => {
             animate={{ opacity: 1, y: 0 }}
             className="md:hidden bg-dark-card rounded-lg mt-2 p-4 border border-dark-border glow-blue"
           >
-            {navItems.map((item) => (
+            {/* Back to Home button for admin pages (mobile) */}
+            {isAdminPage && (
+              <Link to="/" className="block text-gray-300 hover:text-blue-400 py-2 transition-colors duration-200">
+                <div className="flex items-center space-x-2">
+                  <ArrowLeft size={16} />
+                  <span>{t('nav.backToHome')}</span>
+                </div>
+              </Link>
+            )}
+
+            {/* Regular navigation items (only show on home page) */}
+            {!isAdminPage && navItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
@@ -124,21 +163,23 @@ const Header = () => {
                 {item.name}
               </button>
             ))}
-            <Link to="/admin" className="block text-gray-300 hover:text-blue-400 py-2 transition-colors duration-200">
-              {t('nav.admin')}
-            </Link>
+
+            {/* Admin link (only show on home page) */}
+            {!isAdminPage && (
+              <Link to="/admin" className="block text-gray-300 hover:text-blue-400 py-2 transition-colors duration-200">
+                {t('nav.admin')}
+              </Link>
+            )}
             
-            {/* Mobile Language Toggle */}
-            <div className="py-2">
-              <LanguageToggle />
-            </div>
-            
-            <button 
-              onClick={() => scrollToSection('services')}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-2 rounded-lg mt-4 glow-blue"
-            >
-              {t('nav.joinNow')}
-            </button>
+            {/* Join Now button (only show on home page) */}
+            {!isAdminPage && (
+              <button 
+                onClick={() => scrollToSection('services')}
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-2 rounded-lg mt-4 glow-blue"
+              >
+                {t('nav.joinNow')}
+              </button>
+            )}
           </motion.div>
         )}
       </div>

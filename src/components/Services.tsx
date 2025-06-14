@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Globe, Code2, Users, BookOpen, Laptop, Coffee } from 'lucide-react';
 import ApplicationModal from './ApplicationModal';
+import { useTranslation } from '../hooks/useTranslation';
 
 const Services = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState<'language' | 'coding' | 'office-club'>('language');
+  const { t } = useTranslation();
 
   const openModal = (type: 'language' | 'coding' | 'office-club') => {
     setModalType(type);
@@ -15,8 +17,8 @@ const Services = () => {
   const services = [
     {
       icon: Globe,
-      title: 'Language Learning',
-      description: 'Master multiple languages with our immersive teaching methods and native speaker instructors.',
+      title: t('services.language.title'),
+      description: t('services.language.description'),
       features: ['Native Speakers', 'Interactive Lessons', 'Cultural Immersion', 'Certification'],
       color: 'from-blue-500 to-blue-600',
       delay: 0.1,
@@ -24,8 +26,8 @@ const Services = () => {
     },
     {
       icon: Code2,
-      title: 'Coding Bootcamp',
-      description: 'Learn programming from scratch or advance your skills with cutting-edge technologies.',
+      title: t('services.coding.title'),
+      description: t('services.coding.description'),
       features: ['Full-Stack Development', 'Modern Frameworks', 'Real Projects', 'Job Placement'],
       color: 'from-purple-500 to-purple-600',
       delay: 0.2,
@@ -33,8 +35,8 @@ const Services = () => {
     },
     {
       icon: Users,
-      title: 'The Office Club',
-      description: 'Join our exclusive Monday sessions for networking, collaboration, and skill sharing.',
+      title: t('services.office.title'),
+      description: t('services.office.description'),
       features: ['Weekly Meetups', 'Peer Learning', 'Industry Experts', 'Project Collaboration'],
       color: 'from-cyan-500 to-cyan-600',
       delay: 0.3,
@@ -56,10 +58,10 @@ const Services = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Our <span className="text-glow text-blue-400">Services</span>
+            {t('services.title').split(' ')[0]} <span className="text-glow text-blue-400">{t('services.title').split(' ')[1]}</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Comprehensive learning experiences designed to elevate your skills and connect you with a community of learners
+            {t('services.subtitle')}
           </p>
         </motion.div>
 
@@ -101,7 +103,7 @@ const Services = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Apply Now
+                    {t('services.applyNow')}
                   </motion.button>
                 </div>
               </div>
@@ -122,7 +124,7 @@ const Services = () => {
               <div>
                 <div className="flex items-center space-x-3 mb-6">
                   <Coffee className="text-blue-400" size={32} />
-                  <h3 className="text-3xl font-bold text-white">The Office - Every Monday</h3>
+                  <h3 className="text-3xl font-bold text-white">{t('nav.office')} - Every Monday</h3>
                 </div>
                 <p className="text-gray-300 text-lg mb-6 leading-relaxed">
                   Join our exclusive weekly club where learners, developers, and language enthusiasts come together 

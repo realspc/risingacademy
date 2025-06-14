@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Globe, Code2 } from 'lucide-react';
 import ApplicationModal from './ApplicationModal';
+import { useTranslation } from '../hooks/useTranslation';
 
 const Hero = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState<'language' | 'coding' | 'office-club'>('language');
+  const { t } = useTranslation();
 
   const openModal = (type: 'language' | 'coding' | 'office-club') => {
     setModalType(type);
@@ -43,7 +45,7 @@ const Hero = () => {
             className="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-2 text-blue-400"
           >
             <Sparkles size={16} />
-            <span className="text-sm font-medium">Welcome to the Future of Learning</span>
+            <span className="text-sm font-medium">{t('hero.badge')}</span>
           </motion.div>
 
           {/* Main Heading */}
@@ -53,10 +55,10 @@ const Hero = () => {
             transition={{ delay: 0.4 }}
             className="text-5xl md:text-7xl font-bold text-white leading-tight"
           >
-            <span className="text-glow">Rising</span>
+            <span className="text-glow">{t('hero.title1')}</span>
             <br />
             <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              Academy
+              {t('hero.title2')}
             </span>
           </motion.h1>
 
@@ -67,8 +69,7 @@ const Hero = () => {
             transition={{ delay: 0.6 }}
             className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
           >
-            Master languages, conquer code, and connect with like-minded learners in our exclusive Monday club sessions at{' '}
-            <span className="text-blue-400 font-semibold">The Office</span>
+            {t('hero.subtitle')}
           </motion.p>
 
           {/* Feature Icons */}
@@ -82,19 +83,19 @@ const Hero = () => {
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center glow-blue card-3d">
                 <Globe className="text-white" size={24} />
               </div>
-              <span className="text-gray-400 text-sm">Languages</span>
+              <span className="text-gray-400 text-sm">{t('nav.languages')}</span>
             </div>
             <div className="flex flex-col items-center space-y-2">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center glow-blue card-3d">
                 <Code2 className="text-white" size={24} />
               </div>
-              <span className="text-gray-400 text-sm">Coding</span>
+              <span className="text-gray-400 text-sm">{t('nav.coding')}</span>
             </div>
             <div className="flex flex-col items-center space-y-2">
               <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center glow-blue card-3d">
                 <Sparkles className="text-white" size={24} />
               </div>
-              <span className="text-gray-400 text-sm">The Office</span>
+              <span className="text-gray-400 text-sm">{t('nav.office')}</span>
             </div>
           </motion.div>
 
@@ -111,7 +112,7 @@ const Hero = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span>Start Learning Today</span>
+              <span>{t('hero.startLearning')}</span>
               <ArrowRight size={20} />
             </motion.button>
             <motion.button
@@ -120,7 +121,7 @@ const Hero = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Join The Office Club
+              {t('hero.joinOffice')}
             </motion.button>
           </motion.div>
         </motion.div>
