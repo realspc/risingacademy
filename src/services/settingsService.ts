@@ -7,6 +7,15 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
+export interface ServiceCategory {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+  subcategories?: string[];
+}
+
 export interface SiteSettings {
   id?: string;
   contact: {
@@ -25,6 +34,9 @@ export interface SiteSettings {
     day: string;
     time: string;
     description: string;
+  };
+  services: {
+    categories: ServiceCategory[];
   };
   updatedAt: Date;
 }
@@ -49,6 +61,66 @@ const getDefaultSettings = (): SiteSettings => ({
     day: 'MONDAY',
     time: '6:00 PM - 9:00 PM',
     description: 'Join us every Monday for collaborative learning, networking, and skill sharing.'
+  },
+  services: {
+    categories: [
+      {
+        id: 'languages',
+        name: 'Language Learning',
+        description: 'Master multiple languages with native speakers',
+        icon: 'Globe',
+        color: 'from-blue-500 to-blue-600',
+        subcategories: ['English', 'French', 'Spanish', 'German', 'Arabic']
+      },
+      {
+        id: 'development',
+        name: 'Development',
+        description: 'Learn programming and web development',
+        icon: 'Code2',
+        color: 'from-purple-500 to-purple-600',
+        subcategories: ['Web Development', 'Cyber Security', 'AI', 'Programming Fundamentals']
+      },
+      {
+        id: 'design',
+        name: 'Graphic Design',
+        description: 'Creative design and visual arts',
+        icon: 'Palette',
+        color: 'from-pink-500 to-pink-600',
+        subcategories: ['Adobe Photoshop', 'Illustrator', 'UI/UX Design', 'Branding']
+      },
+      {
+        id: 'business',
+        name: 'Business & Finance',
+        description: 'Trading, accounting, and business skills',
+        icon: 'TrendingUp',
+        color: 'from-green-500 to-green-600',
+        subcategories: ['Trading', 'PC Compta', 'PC Paie', 'المحاسبة']
+      },
+      {
+        id: 'marketing',
+        name: 'Digital Marketing',
+        description: 'Online marketing and social media',
+        icon: 'Megaphone',
+        color: 'from-orange-500 to-orange-600',
+        subcategories: ['Social Media Marketing', 'SEO', 'Content Marketing', 'Email Marketing']
+      },
+      {
+        id: 'media',
+        name: 'Video Editing',
+        description: 'Video production and editing',
+        icon: 'Video',
+        color: 'from-red-500 to-red-600',
+        subcategories: ['Adobe Premiere', 'After Effects', 'Motion Graphics', 'Color Grading']
+      },
+      {
+        id: 'it',
+        name: 'Informatique',
+        description: 'Computer science and IT fundamentals',
+        icon: 'Monitor',
+        color: 'from-cyan-500 to-cyan-600',
+        subcategories: ['Computer Basics', 'Office Suite', 'Hardware', 'Networking']
+      }
+    ]
   },
   updatedAt: new Date()
 });

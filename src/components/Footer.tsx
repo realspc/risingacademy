@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Github, Twitter, Linkedin, Instagram, Facebook } from 'lucide-react';
 import { settingsService, SiteSettings } from '../services/settingsService';
+import { useTranslation } from '../hooks/useTranslation';
 
 const Footer = () => {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     loadSettings();
@@ -36,17 +38,17 @@ const Footer = () => {
   };
 
   const quickLinks = [
-    { name: 'Languages', href: 'services' },
-    { name: 'Coding', href: 'services' },
-    { name: 'The Office', href: 'services' },
-    { name: 'About', href: 'stats' },
-    { name: 'Contact', href: 'contact' },
+    { name: t('nav.languages'), href: 'services' },
+    { name: t('nav.coding'), href: 'services' },
+    { name: t('nav.office'), href: 'services' },
+    { name: t('nav.about'), href: 'stats' },
+    { name: t('nav.contact'), href: 'contact' },
   ];
 
   // Show loading state briefly, then show content with settings (or defaults)
   if (isLoading) {
     return (
-      <footer id="contact\" className="bg-dark-card border-t border-dark-border relative overflow-hidden">
+      <footer id="contact" className="bg-dark-card border-t border-dark-border relative overflow-hidden">
         <div className="absolute inset-0 bg-grid opacity-10"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="flex items-center justify-center">
@@ -76,7 +78,7 @@ const Footer = () => {
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center glow-blue">
                 <span className="text-white font-bold">R</span>
               </div>
-              <span className="text-white font-bold text-2xl text-glow">Rising Academy</span>
+              <span className="text-white font-bold text-2xl text-glow">{t('brand.name')}</span>
             </div>
             <p className="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
               Empowering learners worldwide with cutting-edge language and coding education. 
@@ -129,7 +131,7 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-white font-bold text-lg mb-6">The Office Club</h3>
+            <h3 className="text-white font-bold text-lg mb-6">{t('nav.office')}</h3>
             <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 glow-blue">
               <div className="text-center">
                 <div className="text-2xl font-bold text-blue-400 mb-1">
@@ -202,7 +204,7 @@ const Footer = () => {
 
             {/* Copyright */}
             <div className="text-gray-400 text-sm">
-              © 2024 Rising Academy. All rights reserved.
+              © 2024 {t('brand.name')}. All rights reserved.
             </div>
           </div>
         </motion.div>

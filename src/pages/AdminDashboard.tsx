@@ -16,11 +16,13 @@ import {
   Trash2,
   Settings,
   Edit,
-  RefreshCw
+  RefreshCw,
+  Plus,
+  Minus
 } from 'lucide-react';
 import { applicationService } from '../services/applicationService';
 import { authService } from '../services/authService';
-import { settingsService, SiteSettings } from '../services/settingsService';
+import { settingsService, SiteSettings, ServiceCategory } from '../services/settingsService';
 import { Application } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../hooks/useTranslation';
@@ -149,6 +151,53 @@ const AdminDashboard = () => {
     } catch (error) {
       toast.error('Failed to update settings');
     }
+  };
+
+  const addServiceCategory = () => {
+    if (!editingSettings) return;
+    
+    const newCategory: ServiceCategory = {
+      id: `category-${Date.now()}`,
+      name: 'New Category',
+      description: 'Description for new category',
+      icon: 'Star',
+      color: 'from-gray-500 to-gray-600',
+      subcategories: []
+    };
+
+    setEditingSettings({
+      ...editingSettings,
+      services: {
+        ...editingSettings.services,
+        categories: [...editingSettings.services.categories, newCategory]
+      }
+    });
+  };
+
+  const removeServiceCategory = (categoryId: string) => {
+    if (!editingSettings) return;
+    
+    setEditingSettings({
+      ...editingSettings,
+      services: {
+        ...editingSettings.services,
+        categories: editingSettings.services.categories.filter(cat => cat.id !== categoryId)
+      }
+    });
+  };
+
+  const updateServiceCategory = (categoryId: string, updates: Partial<ServiceCategory>) => {
+    if (!editingSettings) return;
+    
+    setEditingSettings({
+      ...editingSettings,
+      services: {
+        ...editingSettings.services,
+        categories: editingSettings.services.categories.map(cat => 
+          cat.id === categoryId ? { ...cat, ...updates } : cat
+        )
+      }
+    });
   };
 
   const getTypeIcon = (type: string) => {
@@ -569,7 +618,7 @@ const AdminDashboard = () => {
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-dark-card border border-dark-border rounded-2xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-dark-card border border-dark-border rounded-2xl p-8 max-w-6xl w-full max-h-[90vh] overflow-y-auto"
           >
             <div className="flex justify-between items-start mb-6">
               <h2 className="text-2xl font-bold text-white">Site Settings</h2>
@@ -744,6 +793,85 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Service Categories */}
+              {editingSettings && (
+                <div className="mb-8">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-xl font-bold text-white">Service Categories</h3>
+                    <button
+                      type="button"
+                      onClick={addServiceCategory}
+                      className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      <Plus size={16} />
+                      <span>Add Category</span>
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {editingSettings.services.categories.map((category, index) => (
+                      <div key={category.id} className="bg-dark-bg border border-dark-border rounded-lg p-4">
+                        <div className="flex justify-between items-start mb-4">
+                          <h4 className="text-lg font-semibold text-white">Category {index + 1}</h4>
+                          <button
+                            type="button"
+                            onClick={() => removeServiceCategory(category.id)}
+                            className="text-red-400 hover:text-red-300 transition-colors"
+                          >
+                            <Minus size={16} />
+                          </button>
+                        </div>
+                        
+                        <div className="grid md:grid-cols-2 gap-4 mb-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                            <input
+                              type="text"
+                              value={category.name}
+                              onChange={(e) => updateServiceCategory(category.id, { name: e.target.value })}
+                              className="w-full bg-dark-card border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-400 mb-2">Icon</label>
+                            <input
+                              type="text"
+                              value={category.icon}
+                              onChange={(e) => updateServiceCategory(category.id, { icon: e.target.value })}
+                              className="w-full bg-dark-card border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
+                              placeholder="e.g., Globe, Code2, Palette"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div className="mb-4">
+                          <label className="block text-sm font-medium text-gray-400 mb-2">Description</label>
+                          <textarea
+                            rows={2}
+                            value={category.description}
+                            onChange={(e) => updateServiceCategory(category.id, { description: e.target.value })}
+                            className="w-full bg-dark-card border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none resize-none"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="block text-sm font-medium text-gray-400 mb-2">Subcategories (comma-separated)</label>
+                          <input
+                            type="text"
+                            value={category.subcategories?.join(', ') || ''}
+                            onChange={(e) => updateServiceCategory(category.id, { 
+                              subcategories: e.target.value.split(',').map(s => s.trim()).filter(s => s) 
+                            })}
+                            className="w-full bg-dark-card border border-dark-border rounded-lg px-4 py-2 text-white focus:border-blue-400 focus:outline-none"
+                            placeholder="e.g., Web Development, Mobile Apps, AI"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="flex space-x-4">
                 <button

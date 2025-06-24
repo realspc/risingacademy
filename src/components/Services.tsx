@@ -58,14 +58,14 @@ const Services = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            {t('services.title').split(' ')[0]} <span className="text-glow text-blue-400">{t('services.title').split(' ')[1]}</span>
+            {t('services.title').split(' ')[0]} <span className="text-glow text-blue-400">{t('services.title').split(' ')[1] || ''}</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             {t('services.subtitle')}
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -76,22 +76,22 @@ const Services = () => {
               className="group"
             >
               <div className="gradient-border h-full">
-                <div className="gradient-border-content p-8 h-full card-3d group-hover:glow-blue-intense transition-all duration-300">
+                <div className="gradient-border-content p-6 md:p-8 h-full card-3d group-hover:glow-blue-intense transition-all duration-300">
                   {/* Icon */}
-                  <div className={`w-16 h-16 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-6 glow-blue floating-animation`}>
-                    <service.icon className="text-white" size={28} />
+                  <div className={`w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-6 glow-blue floating-animation mx-auto md:mx-0`}>
+                    <service.icon className="text-white" size={24} />
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
-                  <p className="text-gray-300 mb-6 leading-relaxed">{service.description}</p>
+                  <h3 className="text-xl md:text-2xl font-bold text-white mb-4 text-center md:text-left">{service.title}</h3>
+                  <p className="text-gray-300 mb-6 leading-relaxed text-center md:text-left">{service.description}</p>
 
                   {/* Features */}
                   <ul className="space-y-3 mb-8">
                     {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-gray-400">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full mr-3 glow-blue"></div>
-                        {feature}
+                      <li key={idx} className="flex items-center text-gray-400 justify-center md:justify-start">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full mr-3 glow-blue flex-shrink-0"></div>
+                        <span className="text-sm md:text-base">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -119,50 +119,52 @@ const Services = () => {
           viewport={{ once: true }}
           className="mt-20"
         >
-          <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-2xl p-8 md:p-12 border border-blue-500/30 glow-blue">
+          <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-2xl p-6 md:p-8 lg:p-12 border border-blue-500/30 glow-blue">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <div className="flex items-center space-x-3 mb-6">
-                  <Coffee className="text-blue-400" size={32} />
-                  <h3 className="text-3xl font-bold text-white">{t('nav.office')} - Every Monday</h3>
+                <div className="flex items-center space-x-3 mb-6 justify-center md:justify-start">
+                  <Coffee className="text-blue-400" size={28} />
+                  <h3 className="text-2xl md:text-3xl font-bold text-white">{t('nav.office')} - Every Monday</h3>
                 </div>
-                <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+                <p className="text-gray-300 text-base md:text-lg mb-6 leading-relaxed text-center md:text-left">
                   Join our exclusive weekly club where learners, developers, and language enthusiasts come together 
                   to share knowledge, work on projects, and build lasting connections.
                 </p>
                 <div className="grid grid-cols-2 gap-4 mb-8">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 justify-center md:justify-start">
                     <BookOpen className="text-blue-400" size={20} />
-                    <span className="text-gray-300">Study Groups</span>
+                    <span className="text-gray-300 text-sm md:text-base">Study Groups</span>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 justify-center md:justify-start">
                     <Laptop className="text-blue-400" size={20} />
-                    <span className="text-gray-300">Coding Sessions</span>
+                    <span className="text-gray-300 text-sm md:text-base">Coding Sessions</span>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 justify-center md:justify-start">
                     <Users className="text-blue-400" size={20} />
-                    <span className="text-gray-300">Networking</span>
+                    <span className="text-gray-300 text-sm md:text-base">Networking</span>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 justify-center md:justify-start">
                     <Coffee className="text-blue-400" size={20} />
-                    <span className="text-gray-300">Coffee & Chat</span>
+                    <span className="text-gray-300 text-sm md:text-base">Coffee & Chat</span>
                   </div>
                 </div>
-                <motion.button
-                  onClick={() => openModal('office-club')}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold glow-blue-intense hover:scale-105 transition-all duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Reserve Your Spot
-                </motion.button>
+                <div className="text-center md:text-left">
+                  <motion.button
+                    onClick={() => openModal('office-club')}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold glow-blue-intense hover:scale-105 transition-all duration-300"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Reserve Your Spot
+                  </motion.button>
+                </div>
               </div>
               <div className="relative">
-                <div className="w-full h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl flex items-center justify-center glow-blue floating-animation">
+                <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl flex items-center justify-center glow-blue floating-animation">
                   <div className="text-center">
-                    <div className="text-6xl font-bold text-blue-400 mb-2">MON</div>
-                    <div className="text-gray-300">Weekly Sessions</div>
-                    <div className="text-blue-400 font-semibold">6:00 PM - 9:00 PM</div>
+                    <div className="text-4xl md:text-6xl font-bold text-blue-400 mb-2">MON</div>
+                    <div className="text-gray-300 text-sm md:text-base">Weekly Sessions</div>
+                    <div className="text-blue-400 font-semibold text-sm md:text-base">6:00 PM - 9:00 PM</div>
                   </div>
                 </div>
               </div>

@@ -62,14 +62,14 @@ const Stats = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            {t('stats.title').split(' ')[0]} <span className="text-glow text-blue-400">{t('stats.title').split(' ')[1]}</span>
+            {t('stats.title').split(' ')[0]} <span className="text-glow text-blue-400">{t('stats.title').split(' ')[1] || ''}</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             {t('stats.subtitle')}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -81,8 +81,8 @@ const Stats = () => {
             >
               <div className="relative">
                 {/* Icon Container */}
-                <div className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${stat.color} rounded-2xl flex items-center justify-center glow-blue group-hover:glow-blue-intense transition-all duration-300 card-3d`}>
-                  <stat.icon className="text-white" size={32} />
+                <div className={`w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 md:mb-6 bg-gradient-to-br ${stat.color} rounded-2xl flex items-center justify-center glow-blue group-hover:glow-blue-intense transition-all duration-300 card-3d`}>
+                  <stat.icon className="text-white" size={24} />
                 </div>
 
                 {/* Number */}
@@ -91,13 +91,13 @@ const Stats = () => {
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 1, delay: index * 0.2 }}
                   viewport={{ once: true }}
-                  className="text-4xl md:text-5xl font-bold text-white mb-2 text-glow"
+                  className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 text-glow"
                 >
                   {stat.number}
                 </motion.div>
 
                 {/* Label */}
-                <div className="text-gray-400 font-medium">{stat.label}</div>
+                <div className="text-gray-400 font-medium text-sm md:text-base">{stat.label}</div>
 
                 {/* Glow Effect */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-xl`}></div>
@@ -114,11 +114,10 @@ const Stats = () => {
           viewport={{ once: true }}
           className="mt-16 text-center"
         >
-          <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-8 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">Join Our Growing Community</h3>
-            <p className="text-gray-300 text-lg leading-relaxed">
-              Be part of a vibrant learning ecosystem where students from around the world come together 
-              to master new skills, share knowledge, and build the future together.
+          <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-4">{t('stats.aboutTitle')}</h3>
+            <p className="text-gray-300 text-base md:text-lg leading-relaxed">
+              {t('stats.aboutDescription')}
             </p>
           </div>
         </motion.div>

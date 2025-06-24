@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { X, User, Mail, Phone, Calendar, MessageSquare, Globe, Code, Users } from 'lucide-react';
 import { applicationService } from '../services/applicationService';
+import { useTranslation } from '../hooks/useTranslation';
 import toast from 'react-hot-toast';
 
 interface ApplicationModalProps {
@@ -27,29 +28,30 @@ interface FormData {
 const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, type }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
+  const { t } = useTranslation();
 
   const getModalConfig = () => {
     switch (type) {
       case 'language':
         return {
-          title: 'Apply for Language Learning',
+          title: t('form.title.language'),
           icon: Globe,
           color: 'from-blue-500 to-blue-600',
-          description: 'Join our immersive language learning program'
+          description: t('form.description.language')
         };
       case 'coding':
         return {
-          title: 'Apply for Coding Bootcamp',
+          title: t('form.title.coding'),
           icon: Code,
           color: 'from-purple-500 to-purple-600',
-          description: 'Start your programming journey with us'
+          description: t('form.description.coding')
         };
       case 'office-club':
         return {
-          title: 'Join The Office Club',
+          title: t('form.title.office'),
           icon: Users,
           color: 'from-cyan-500 to-cyan-600',
-          description: 'Be part of our Monday learning community'
+          description: t('form.description.office')
         };
       default:
         return {
@@ -136,12 +138,12 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, ty
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     <User size={16} className="inline mr-2" />
-                    First Name
+                    {t('form.firstName')}
                   </label>
                   <input
                     {...register('firstName', { required: 'First name is required' })}
                     className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:border-blue-400 focus:outline-none transition-colors"
-                    placeholder="Enter your first name"
+                    placeholder={t('form.firstName')}
                   />
                   {errors.firstName && (
                     <p className="text-red-400 text-sm mt-1">{errors.firstName.message}</p>
@@ -150,12 +152,12 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, ty
 
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Last Name
+                    {t('form.lastName')}
                   </label>
                   <input
                     {...register('lastName', { required: 'Last name is required' })}
                     className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:border-blue-400 focus:outline-none transition-colors"
-                    placeholder="Enter your last name"
+                    placeholder={t('form.lastName')}
                   />
                   {errors.lastName && (
                     <p className="text-red-400 text-sm mt-1">{errors.lastName.message}</p>
@@ -167,7 +169,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, ty
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     <Mail size={16} className="inline mr-2" />
-                    Email
+                    {t('form.email')}
                   </label>
                   <input
                     type="email"
@@ -179,7 +181,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, ty
                       }
                     })}
                     className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:border-blue-400 focus:outline-none transition-colors"
-                    placeholder="Enter your email"
+                    placeholder={t('form.email')}
                   />
                   {errors.email && (
                     <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>
@@ -189,12 +191,12 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, ty
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     <Phone size={16} className="inline mr-2" />
-                    Phone
+                    {t('form.phone')}
                   </label>
                   <input
                     {...register('phone', { required: 'Phone number is required' })}
                     className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:border-blue-400 focus:outline-none transition-colors"
-                    placeholder="Enter your phone number"
+                    placeholder={t('form.phone')}
                   />
                   {errors.phone && (
                     <p className="text-red-400 text-sm mt-1">{errors.phone.message}</p>
@@ -205,7 +207,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, ty
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   <Calendar size={16} className="inline mr-2" />
-                  Age
+                  {t('form.age')}
                 </label>
                 <input
                   type="number"
@@ -215,7 +217,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, ty
                     max: { value: 100, message: 'Invalid age' }
                   })}
                   className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:border-blue-400 focus:outline-none transition-colors"
-                  placeholder="Enter your age"
+                  placeholder={t('form.age')}
                 />
                 {errors.age && (
                   <p className="text-red-400 text-sm mt-1">{errors.age.message}</p>
@@ -226,7 +228,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, ty
               {type === 'language' && (
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Preferred Languages (select multiple)
+                    {t('form.preferredLanguages')}
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     {languageOptions.map((lang) => (
@@ -247,23 +249,23 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, ty
               {type === 'coding' && (
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Programming Experience
+                    {t('form.programmingExperience')}
                   </label>
                   <select
                     {...register('programmingExperience')}
                     className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:border-blue-400 focus:outline-none transition-colors"
                   >
-                    <option value="">Select your level</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
+                    <option value="">{t('form.selectLevel')}</option>
+                    <option value="beginner">{t('form.beginner')}</option>
+                    <option value="intermediate">{t('form.intermediate')}</option>
+                    <option value="advanced">{t('form.advanced')}</option>
                   </select>
                 </div>
               )}
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Availability (select all that apply)
+                  {t('form.availability')}
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {availabilityOptions.map((time) => (
@@ -283,13 +285,13 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, ty
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   <MessageSquare size={16} className="inline mr-2" />
-                  Why do you want to join?
+                  {t('form.motivation')}
                 </label>
                 <textarea
                   {...register('motivation', { required: 'Please tell us your motivation' })}
                   rows={4}
                   className="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-white focus:border-blue-400 focus:outline-none transition-colors resize-none"
-                  placeholder="Tell us about your goals and motivation..."
+                  placeholder={t('form.motivationPlaceholder')}
                 />
                 {errors.motivation && (
                   <p className="text-red-400 text-sm mt-1">{errors.motivation.message}</p>
@@ -303,14 +305,14 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, ty
                   onClick={onClose}
                   className="flex-1 border border-dark-border text-gray-300 py-3 rounded-lg hover:bg-dark-bg transition-colors"
                 >
-                  Cancel
+                  {t('form.cancel')}
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   className={`flex-1 bg-gradient-to-r ${config.color} text-white py-3 rounded-lg font-semibold glow-blue hover:glow-blue-intense transition-all duration-300 disabled:opacity-50`}
                 >
-                  {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                  {isSubmitting ? t('form.submitting') : t('form.submit')}
                 </button>
               </div>
             </form>

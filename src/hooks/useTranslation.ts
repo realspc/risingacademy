@@ -49,6 +49,33 @@ const translations: Translations = {
     'stats.languages': 'Languages Taught',
     'stats.programming': 'Programming Languages',
     'stats.success': 'Success Rate',
+    'stats.aboutTitle': 'Join Our Growing Community',
+    'stats.aboutDescription': 'Be part of a vibrant learning ecosystem where students from around the world come together to master new skills, share knowledge, and build the future together.',
+    
+    // Application Form
+    'form.title.language': 'Apply for Language Learning',
+    'form.title.coding': 'Apply for Coding Bootcamp',
+    'form.title.office': 'Join The Office Club',
+    'form.description.language': 'Join our immersive language learning program',
+    'form.description.coding': 'Start your programming journey with us',
+    'form.description.office': 'Be part of our Monday learning community',
+    'form.firstName': 'First Name',
+    'form.lastName': 'Last Name',
+    'form.email': 'Email',
+    'form.phone': 'Phone',
+    'form.age': 'Age',
+    'form.preferredLanguages': 'Preferred Languages (select multiple)',
+    'form.programmingExperience': 'Programming Experience',
+    'form.availability': 'Availability (select all that apply)',
+    'form.motivation': 'Why do you want to join?',
+    'form.motivationPlaceholder': 'Tell us about your goals and motivation...',
+    'form.submit': 'Submit Application',
+    'form.submitting': 'Submitting...',
+    'form.cancel': 'Cancel',
+    'form.selectLevel': 'Select your level',
+    'form.beginner': 'Beginner',
+    'form.intermediate': 'Intermediate',
+    'form.advanced': 'Advanced',
     
     // Admin
     'admin.title': 'Admin Login',
@@ -118,6 +145,33 @@ const translations: Translations = {
     'stats.languages': 'اللغات المُدرسة',
     'stats.programming': 'لغات البرمجة',
     'stats.success': 'معدل النجاح',
+    'stats.aboutTitle': 'انضم لمجتمعنا المتنامي',
+    'stats.aboutDescription': 'كن جزءاً من نظام تعليمي نابض بالحياة حيث يجتمع الطلاب من جميع أنحاء العالم لإتقان مهارات جديدة ومشاركة المعرفة وبناء المستقبل معاً.',
+    
+    // Application Form
+    'form.title.language': 'التقديم لتعلم اللغات',
+    'form.title.coding': 'التقديم لمعسكر البرمجة',
+    'form.title.office': 'انضم لنادي المكتب',
+    'form.description.language': 'انضم لبرنامج تعلم اللغات الغامر',
+    'form.description.coding': 'ابدأ رحلة البرمجة معنا',
+    'form.description.office': 'كن جزءاً من مجتمع التعلم يوم الاثنين',
+    'form.firstName': 'الاسم الأول',
+    'form.lastName': 'اسم العائلة',
+    'form.email': 'البريد الإلكتروني',
+    'form.phone': 'رقم الهاتف',
+    'form.age': 'العمر',
+    'form.preferredLanguages': 'اللغات المفضلة (اختر متعددة)',
+    'form.programmingExperience': 'خبرة البرمجة',
+    'form.availability': 'الأوقات المتاحة (اختر كل ما ينطبق)',
+    'form.motivation': 'لماذا تريد الانضمام؟',
+    'form.motivationPlaceholder': 'أخبرنا عن أهدافك ودوافعك...',
+    'form.submit': 'إرسال الطلب',
+    'form.submitting': 'جاري الإرسال...',
+    'form.cancel': 'إلغاء',
+    'form.selectLevel': 'اختر مستواك',
+    'form.beginner': 'مبتدئ',
+    'form.intermediate': 'متوسط',
+    'form.advanced': 'متقدم',
     
     // Admin
     'admin.title': 'تسجيل دخول الإدارة',
@@ -159,12 +213,12 @@ const translations: Translations = {
     'nav.backToHome': 'Retour à l\'accueil',
     
     // Brand
-    'brand.name': 'Académie Rising',
+    'brand.name': 'Rising Academy',
     
     // Hero Section
     'hero.badge': 'Bienvenue dans l\'avenir de l\'apprentissage',
-    'hero.title1': 'Académie',
-    'hero.title2': 'Rising',
+    'hero.title1': 'Rising',
+    'hero.title2': 'Academy',
     'hero.subtitle': 'Maîtrisez les langues, conquérez le code et connectez-vous avec des apprenants partageant les mêmes idées dans nos sessions exclusives du club du lundi au Bureau',
     'hero.startLearning': 'Commencer à apprendre aujourd\'hui',
     'hero.joinOffice': 'Rejoindre le Club du Bureau',
@@ -187,14 +241,41 @@ const translations: Translations = {
     'stats.languages': 'Langues Enseignées',
     'stats.programming': 'Langages de Programmation',
     'stats.success': 'Taux de Réussite',
+    'stats.aboutTitle': 'Rejoignez Notre Communauté Grandissante',
+    'stats.aboutDescription': 'Faites partie d\'un écosystème d\'apprentissage dynamique où les étudiants du monde entier se rassemblent pour maîtriser de nouvelles compétences, partager des connaissances et construire l\'avenir ensemble.',
+    
+    // Application Form
+    'form.title.language': 'Postuler pour l\'Apprentissage des Langues',
+    'form.title.coding': 'Postuler pour le Bootcamp de Programmation',
+    'form.title.office': 'Rejoindre le Club du Bureau',
+    'form.description.language': 'Rejoignez notre programme d\'apprentissage des langues immersif',
+    'form.description.coding': 'Commencez votre parcours de programmation avec nous',
+    'form.description.office': 'Faites partie de notre communauté d\'apprentissage du lundi',
+    'form.firstName': 'Prénom',
+    'form.lastName': 'Nom de famille',
+    'form.email': 'E-mail',
+    'form.phone': 'Téléphone',
+    'form.age': 'Âge',
+    'form.preferredLanguages': 'Langues préférées (sélectionnez plusieurs)',
+    'form.programmingExperience': 'Expérience en programmation',
+    'form.availability': 'Disponibilité (sélectionnez tout ce qui s\'applique)',
+    'form.motivation': 'Pourquoi voulez-vous nous rejoindre?',
+    'form.motivationPlaceholder': 'Parlez-nous de vos objectifs et de votre motivation...',
+    'form.submit': 'Soumettre la candidature',
+    'form.submitting': 'Envoi en cours...',
+    'form.cancel': 'Annuler',
+    'form.selectLevel': 'Sélectionnez votre niveau',
+    'form.beginner': 'Débutant',
+    'form.intermediate': 'Intermédiaire',
+    'form.advanced': 'Avancé',
     
     // Admin
     'admin.title': 'Connexion Admin',
-    'admin.subtitle': 'Accéder au panneau d\'administration de l\'Académie Rising',
+    'admin.subtitle': 'Accéder au panneau d\'administration de Rising Academy',
     'admin.email': 'Adresse e-mail',
     'admin.password': 'Mot de passe',
     'admin.signIn': 'Se connecter',
-    'admin.dashboard': 'Admin Académie Rising',
+    'admin.dashboard': 'Admin Rising Academy',
     'admin.logout': 'Déconnexion',
     'admin.settings': 'Paramètres',
     'admin.refresh': 'Actualiser les candidatures',
@@ -227,7 +308,11 @@ export const useTranslation = () => {
   useEffect(() => {
     localStorage.setItem('language', language);
     document.documentElement.lang = language;
-    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+    // Remove RTL for Arabic to avoid design issues
+    document.documentElement.dir = 'ltr';
+    
+    // Force re-render of the entire app
+    window.dispatchEvent(new Event('languageChanged'));
   }, [language]);
 
   const t = (key: string): string => {
@@ -236,12 +321,16 @@ export const useTranslation = () => {
 
   const changeLanguage = (newLanguage: Language) => {
     setLanguage(newLanguage);
+    // Force page refresh to ensure all components update
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   return {
     language,
     changeLanguage,
     t,
-    isRTL: language === 'ar'
+    isRTL: false // Disabled RTL to avoid design issues
   };
 };
