@@ -48,7 +48,7 @@ const getDefaultSettings = (): SiteSettings => ({
   contact: {
     facebook: 'https://www.facebook.com/risingacademydz/',
     instagram: 'https://www.instagram.com/rising_academy_/?hl=en',
-    phone: '☎️:0670710505 /0667909055',
+    phone: '0670710505 / 0667909055',
     location: 'ولاية باتنة طريق بسكرة، رود العرايس بناية بن بلاط'
   },
   stats: {
