@@ -153,8 +153,8 @@ const AdminDashboard = () => {
     }
   };
 
-  const addServiceCategory = () => {
-    if (!editingSettings) return;
+ const addServiceCategory = () => {
+    if (!editingSettings || !editingSettings.services || !editingSettings.services.categories) return;
     
     const newCategory: ServiceCategory = {
       id: `category-${Date.now()}`,
@@ -175,7 +175,7 @@ const AdminDashboard = () => {
   };
 
   const removeServiceCategory = (categoryId: string) => {
-    if (!editingSettings) return;
+    if (!editingSettings || !editingSettings.services || !editingSettings.services.categories) return;
     
     setEditingSettings({
       ...editingSettings,
@@ -187,7 +187,7 @@ const AdminDashboard = () => {
   };
 
   const updateServiceCategory = (categoryId: string, updates: Partial<ServiceCategory>) => {
-    if (!editingSettings) return;
+    if (!editingSettings || !editingSettings.services || !editingSettings.services.categories) return;
     
     setEditingSettings({
       ...editingSettings,
